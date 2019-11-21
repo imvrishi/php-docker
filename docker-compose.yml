@@ -10,8 +10,32 @@ services:
       - ./site.conf:/etc/nginx/conf.d/site.conf
     links:
       - php
+      - mysql
+    environment:
+      DB_HOST: mysql
+      DB_DATABASE: phpdocker
+      DB_USERNAME: app
+      DB_PASSWORD: password
+      REDIS_HOST: redis
+      SESSION_DRIVER: redis
+      CACHE_DRIVER: redis
 
   php:
-    image: php:7-fpm
-    volumes:
-      - ./src:/app
+    build:
+      context: .
+      dockerfile: .docker/PHP-Dockerfile
+
+  mysql:
+    image: mysql:latest
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_DATABASE: phpdocker
+      MYSQL_USER: app
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: password
+
+  redis:
+    image: redis
+    ports:
+      - 6379:6379

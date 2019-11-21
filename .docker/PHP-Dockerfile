@@ -1,0 +1,7 @@
+FROM php:7-fpm
+
+MAINTAINER Rishi
+
+COPY ./src /app
+
+RUN docker-php-ext-install mbstring pdo pdo_mysql
