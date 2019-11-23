@@ -10,3 +10,11 @@ try {
     echo "Error: ", $e->getMessage(), "<br/>";
     die();
 }
+
+$redis = new Redis();
+$redis->connect('redis', 6379);
+echo "Connected <br/>";
+
+echo "Server is running: " . $redis->ping();
+
+echo "Redis stored value (age): " . $redis->get('age');
