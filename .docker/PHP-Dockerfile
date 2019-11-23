@@ -5,3 +5,4 @@ MAINTAINER Rishi
 COPY ./src /app
 
 RUN docker-php-ext-install mbstring pdo pdo_mysql
+RUN pecl install redis && docker-php-ext-enable redis
